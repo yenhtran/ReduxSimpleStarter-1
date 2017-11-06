@@ -3,15 +3,18 @@ import VideoListItem from './video_list_item';
 
 const VideoList = (props) => {
 
-    /* We access the array of videos through props that was passed from parent App. We loop through the array and create VideoListItems for each video. We pass the individual video as props to VideoListItem */
+    /*
+* - Whenever we render and array of items of the same type, React correctly assumes that we're building a list.
+* - React has a bunch of logic built into it to optimize the process of rendering a list. Because it's storing the list in a hash-like object, it needs keys to access each list item.
+* - A common strategy when rendering a list of data is to use the ID for that piece of data. In this example, we will use Youtube's 'etag'.
+* */
 
     const videoItems = props.videos.map((video) => {
-        return <VideoListItem video={video}/>
+        return <VideoListItem key={video.etag} video={video}/>
     });
 
-    /*
-    * React if very good at recognizing lists
-    * */
+
+
     return (
         <ul className="col-md-4" list-group>
             {videoItems}
