@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
 
-/* Steps to Handling User Events
-* 1. Declare a event handler - a function that should be ran whenever the event occurs
-* 2. Pass the event handler to the element that we want to monitor for events
+/* Intro to STATE:
+A plain Javascript Object that is used to record and react to user events. Each class-based component that we define has its own state object whenever a component state is changed, the component immediately renders and also forces all of its children to render as well.
+
+1. Before we ever use state inside of a component, we need to initialize the state object
+
+    constructor(){
+        super(prop);
+        this.state = { term: '' }
+    }
+*
 * */
-
 class SearchBar extends Component {
-    render () {
-        //pass event handler to element
-        return <input onChange={ this.onInputChange } />
+    constructor(){
+        super(prop);
+        this.state = { term: '' }
     }
 
-    //Event Handler
-    onInputChange(event) {
-        console.log(event.target.value);
-    }
-}
-
-export default SearchBar;
-
-
-/****** REFACTOR USING ES6:
-class SearchBar extends Component {
     render () {
         return <input onChange={event => console.log(event.target.value)} />
     }
 }
-*/
+
+export default SearchBar;
