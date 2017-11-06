@@ -1,16 +1,20 @@
 import React from 'react';
-
-/*
-* -Video List doesn't really have any need for state- it doesn't record any user interaction and doesn't re-render itself in any fashion. So we can really just make it a plain functional component.
-* - From the App component, the props object will arrive as an argument to the VideoList function
-* - In a functional component, the props object is an ARGUMENT
-* - In a class-based component, props are available anywhere in any method as 'this.props'
-* */
+import VideoListItem from './video_list_item';
 
 const VideoList = (props) => {
+
+    /* We access the array of videos through props that was passed from parent App. We loop through the array and create VideoListItems for each video. We pass the individual video as props to VideoListItem */
+
+    const videoItems = props.videos.map((video) => {
+        return <VideoListItem video={video}/>
+    });
+
+    /*
+    * React if very good at recognizing lists
+    * */
     return (
         <ul className="col-md-4" list-group>
-            {props.videos.length}
+            {videoItems}
         </ul>
     );
 };
