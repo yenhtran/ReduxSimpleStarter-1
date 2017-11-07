@@ -1,10 +1,15 @@
 import React from 'react';
-/*
-* Because Video Detail really doesn't need to care about maintaining state, we should take that into account and just use functional component
-* */
 
 const VideoDetail = ({video}) => {
-    const videoId = video.id.videId;
+
+    /* Because some parent objects just can't fetch information fast enough to satisfy the needs of child objects. So to handle this we need to add a check inside of video detail components to make sure that a video has been provided in the props before it attempts to render.
+    */
+
+    if (!video) {
+        return <div>Loading...</div>;
+    }
+
+    const videoId = video.id.videoId;
     const url = `https://www.youtube.com/embed/${videoId}`;
 
     return (
