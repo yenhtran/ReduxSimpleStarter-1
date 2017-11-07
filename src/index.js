@@ -11,7 +11,7 @@ class App extends Component {
     constructor(props){
         super(props);
 
-        /* We want to add the concept of a selected video to state. This way we don't have to pass 'this.state.videos[0]' to video details.*/
+/* We want to add the concept of a selected video to state. This way we don't have to pass 'this.state.videos[0]' to video details.*/
         this.state = {
             videos: [],
             selectedVideo: null
@@ -25,12 +25,16 @@ class App extends Component {
         });
     }
 
+/* In order to pass the selectedVideo from video_list_item > video_list > app, we need to pass a callback (onVideoSelect) down to the grandchildren. Passing callbacks like this is a great way to do small communication between a parent component and a child component. You shouldn't go more than 2-levels deep.*/
     render(){
         return (
             <div>
                 <SearchBar/>
                 <VideoDetail video={this.state.selectedVideo}/>
-                <VideoList videos={this.state.videos}/>
+                <VideoList
+                    onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+                    videos={this.state.videos}
+                />
             </div>
         )
     }
