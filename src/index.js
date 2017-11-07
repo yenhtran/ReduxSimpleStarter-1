@@ -10,10 +10,18 @@ const API_KEY = config.API_KEY;
 class App extends Component {
     constructor(props){
         super(props);
-        this.state = { videos: [] };
+
+        /* We want to add the concept of a selected video to state. This way we don't have to pass 'this.state.videos[0]' to video details.*/
+        this.state = {
+            videos: [],
+            selectedVideo: null
+        };
 
         YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
-            this.setState({videos});
+            this.setState({
+                videos: videos,
+                selectedVideo: videos[0]
+            });
         });
     }
 
@@ -21,7 +29,7 @@ class App extends Component {
         return (
             <div>
                 <SearchBar/>
-                <VideoDetail video={this.state.videos[0]}/>
+                <VideoDetail video={this.state.selectedVideo}/>
                 <VideoList videos={this.state.videos}/>
             </div>
         )
