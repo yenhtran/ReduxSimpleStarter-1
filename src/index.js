@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
+import _ from 'lodash';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
@@ -16,12 +17,9 @@ class App extends Component {
             selectedVideo: null
         };
 
-/* In order to hook up the search bar functionality, we will want to pass a callback down into search_bar.js. In order to do that, we will pass a callback down (similar to VideoList) into SearchBar component.
-*/
         this.videoSearch('surfboards');
     }
 
-/* The first thing we do is refactored the YouTube search into its own method and the method just takes a single string- a search term. */
     videoSearch(term) {
         YTSearch({key: API_KEY, term: term}, (videos) => {
             this.setState({
@@ -32,12 +30,14 @@ class App extends Component {
     }
 
     render(){
+
+/* We created a fat arrow function here and passed it to _.debounce. What _.debounce does is that it takes the function that it was passed and returns a new function that can only be called once every 300 milliseconds */
+
+        const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+
         return (
-
-/* We then took this method (videoSearch()) and we passed it down into SearchBar under the property onSearchTermChange. So all search_bar has to do is call props.onSearchTermChange with a new search term and that will call our searching function which will go ahead and fetch a new list of videos.*/
-
             <div>
-                <SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
+                <SearchBar onSearchTermChange={videoSearch}/>
                 <VideoDetail video={this.state.selectedVideo}/>
                 <VideoList
                     onVideoSelect={selectedVideo => this.setState({selectedVideo})}
