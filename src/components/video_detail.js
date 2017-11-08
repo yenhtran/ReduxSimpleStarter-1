@@ -2,9 +2,6 @@ import React from 'react';
 
 const VideoDetail = ({video}) => {
 
-    /* Because some parent objects just can't fetch information fast enough to satisfy the needs of child objects. So to handle this we need to add a check inside of video detail components to make sure that a video has been provided in the props before it attempts to render.
-    */
-
     if (!video) {
         return <div>Loading...</div>;
     }

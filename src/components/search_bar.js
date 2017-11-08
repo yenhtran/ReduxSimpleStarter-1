@@ -8,7 +8,10 @@ class SearchBar extends Component {
 
     render () {
         return (
-            <div>
+
+/* It's always a good idea to give your top level component a class name that is basically the same as the component name. (SeachBar component => className="search-bar") */
+
+            <div className="search-bar">
                 <input
                     value = {this.state.term}
                     onChange={event => this.setState({ term: event.target.value })} />
