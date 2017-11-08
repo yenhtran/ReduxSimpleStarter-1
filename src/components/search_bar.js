@@ -7,16 +7,24 @@ class SearchBar extends Component {
     }
 
     render () {
+
+/* We refactored the onChange event here. So whenever the content of the input changes, it now calls onInputChange with the new input value */
         return (
-
-/* It's always a good idea to give your top level component a class name that is basically the same as the component name. (SeachBar component => className="search-bar") */
-
             <div className="search-bar">
                 <input
                     value = {this.state.term}
-                    onChange={event => this.setState({ term: event.target.value })} />
+                    onChange={event => this.onInputChange(event.target.value)} />
             </div>
         )
+    }
+
+/* onInputChange in turn has two purposes inside:
+*   1. It sets the state of this component
+*   2. It fires off the callback function onSearchTermChange
+* */
+    onInputChange(term) {
+        this.setState({term});
+        this.props.onSearchTermChange(term);
     }
 }
 
